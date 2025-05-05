@@ -18,7 +18,6 @@ st.set_page_config(page_title="CiteWise", layout="wide")
 
 # --- Sidebar Branding & Instructions ---
 st.sidebar.markdown("## ⚖️ CiteWise")
-st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
 st.sidebar.markdown("""
 Your AI-powered assistant for citation and writing support using **The Bluebook (21st Ed.)** and **The Redbook (5th Ed.)**.
 
@@ -65,7 +64,7 @@ sourcebook = st.radio(
 
 # Internal identifier for logic
 source_tag = "bluebook" if sourcebook.startswith("Blue") else "redbook"
-
+st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
 
 
 # --- 1. Style Context Toggle ---
