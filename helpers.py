@@ -60,12 +60,11 @@ def render_keyword_suggestions(source_tag: str) -> str:
 
 def choose_model(source_tag: str) -> str:
     """
-    Automatically select the most accurate OpenRouter model based on the book type.
-    Prioritizes accuracy over speed.
+    Choose the best free OpenRouter model for Bluebook vs. Redbook tasks.
     """
     if source_tag == "bluebook":
-        return "r1-free"  # best free model for citation logic
+        return "meta-llama/llama-4-scout:free"  # Precise + rule-following
     elif source_tag == "redbook":
-        return "kimi-free"  # best free model for writing/grammar help
+        return "mistralai/mistral-small-3.1-24b-instruct:free"  # Strong grammar
     else:
-        return "r1-free"  # fallback
+        return "deepseek/deepseek-chat-v3-0324:free"  # General fallback
