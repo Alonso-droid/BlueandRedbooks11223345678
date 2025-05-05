@@ -252,11 +252,21 @@ def ask_llama(prompt):
         "https://openrouter.ai/api/v1/chat/completions",
         headers=headers,
         json={
-            "model": choose_model(source_tag),
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.4
-        }
-    )
+            try:
+                model_name = choose_model(source_tag)
+            except Exception:
+                model_name = "r1-free"  # safest default
+           ...
+
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json={
+                    "model": model_name,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.4
+                }
+            )
 
     return response.json()["choices"][0]["message"]["content"]
 
