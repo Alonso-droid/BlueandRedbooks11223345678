@@ -33,30 +33,28 @@ COMMON_TOPICS = {
 
 import streamlit as st
 
-def render_keyword_suggestions(source_tag: str) -> str:
-    """
-    Display topic buttons by source (bluebook/redbook) and return a pre-filled query if selected.
-    """
-    from helpers import COMMON_TOPICS  # ensure COMMON_TOPICS is defined in the same file
+def render_keyword_suggestions(source_tag):
+    suggestions = {
+        "bluebook": [
+            ("Short Form", "How do I cite a case in short form?"),
+            ("Consecutively Paginated Journal", "How do I cite an article from a consecutively paginated journal?"),
+            ("Italicization", "Which parts of a citation need to be italicized?")
+        ],
+        "redbook": [
+            ("Oxford Comma", "Should I use the Oxford comma in legal writing?"),
+            ("Em Dash", "How do I correctly use an em dash in formal writing?"),
+            ("Capitalization", "When should 'court' be capitalized?")
+        ]
+    }
 
-    source_label = "Bluebook" if source_tag == "bluebook" else "Redbook"
-    selected_query = ""
+    st.markdown("#### 💡 Quick Topic Fill")
+    topic_row = st.columns(len(suggestions[source_tag]))
 
-    if source_label not in COMMON_TOPICS:
-        st.warning(f"No suggestions available for {source_label}.")
-        return ""
+    for i, (label, query_text) in enumerate(suggestions[source_tag]):
+        if topic_row[i].button(label, key=f"suggest_{label}_{source_tag}"):
+            return query_text
 
-    st.markdown("##### 🔎 Quick-Select Common Topics")
-
-    for group_label, topic_list in COMMON_TOPICS[source_label].items():
-        st.markdown(f"**{group_label}**")
-        cols = st.columns(min(len(topic_list), 4))
-        for idx, (label, query_text) in enumerate(topic_list):
-            if cols[idx % len(cols)].button(label, key=f"kw_{label}_{source_label}"):
-                selected_query = query_text
-        st.markdown("---")
-
-    return selected_query
+    return None
 
 def choose_model(source_tag: str) -> str:
     """
