@@ -33,6 +33,16 @@ COMMON_TOPICS = {
 
 import streamlit as st
 
+st.markdown("""
+    <style>
+        .stButton button {
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 def render_keyword_suggestions(source_tag):
     suggestions = {
         "bluebook": [
@@ -48,13 +58,19 @@ def render_keyword_suggestions(source_tag):
     }
 
     st.markdown("#### 💡 Quick Topic Fill")
-    topic_row = st.columns(len(suggestions[source_tag]))
 
-    for i, (label, query_text) in enumerate(suggestions[source_tag]):
-        if topic_row[i].button(label, key=f"suggest_{label}_{source_tag}"):
-            return query_text
+    # Wrap in a container for styling control
+    with st.container():
+        col1, col2, col3 = st.columns([1, 1, 1])
+
+        # Render each button tightly
+        buttons = [col1, col2, col3]
+        for i, (label, query_text) in enumerate(suggestions[source_tag]):
+            if buttons[i].button(label, key=f"suggest_{label}_{source_tag}"):
+                return query_text
 
     return None
+
 
 def choose_model(source_tag: str) -> str:
     """
