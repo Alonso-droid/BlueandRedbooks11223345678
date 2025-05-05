@@ -152,15 +152,6 @@ if st.button("🔄 Clear Question"):
     st.session_state["query_input"] = ""
     st.experimental_rerun()
 
-with st.form("search_form"):
-    query = st.text_input(
-        "What do you need help with?",
-        placeholder="e.g., How do I cite a federal statute in a court brief?",
-        value=st.session_state["query_input"],
-        key="query_input"
-    )
-    submitted = st.form_submit_button("🔍 Run Search")
-
 if not query or not submitted:
     st.stop()
 
