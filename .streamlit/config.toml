@@ -11,8 +11,8 @@ secondaryBackgroundColor = "#E6EBF2"
 # High-contrast dark text
 textColor = "#262730"
 
-# Serif font for legal-style readability
-font = "Georgia"
+# san-Serif font for legal-style readability
+font = "Arial"
 
 [server]
 # For local development, headless can be false
