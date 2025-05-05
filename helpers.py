@@ -57,3 +57,15 @@ def render_keyword_suggestions(source_tag: str) -> str:
         st.markdown("---")
 
     return selected_query
+
+def choose_model(source_tag: str) -> str:
+    """
+    Automatically select the most accurate OpenRouter model based on the book type.
+    Prioritizes accuracy over speed.
+    """
+    if source_tag == "bluebook":
+        return "r1-free"  # best free model for citation logic
+    elif source_tag == "redbook":
+        return "kimi-free"  # best free model for writing/grammar help
+    else:
+        return "r1-free"  # fallback
