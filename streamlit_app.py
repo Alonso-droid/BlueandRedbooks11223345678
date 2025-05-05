@@ -201,17 +201,16 @@ def search_source_embeddings(query, embeddings_data, k=3):
 # --- 6. Run Search ---
 top_matches = search_source_embeddings(query, selected_data, k=3)
 
-
-st.subheader("Step 4: Relevant Bluebook Content")
+st.subheader(f"Step 4: Relevant {'Bluebook' if source_tag == 'bluebook' else 'Redbook'} Content")
 for match in top_matches:
     with st.expander(f"📘 Rule Match: {match['section']} (p. {match['page']}) — Score: {match['score']}"):
         st.markdown(f"> {match['text']}")
 
-# streamlit_app.py — Part 4 of 7
+
+# --- 7. Prompt Building ---
 import requests
 
-OPENROUTER_API_KEY = st.secrets.get("OPENROUTER_API_KEY")  # Store securely
-
+OPENROUTER_API_KEY = st.secrets.get("OPENROUTER_API_KEY")  # Loaded securely from Streamlit Cloud
 
 @st.cache_data
 def build_contextual_prompt(query, style_context, matches, source_tag):
@@ -241,7 +240,13 @@ Your answer should:
 """
 
 
-def ask_llama(prompt):
+# --- 8. Ask the OpenRouter LLM (with fallback model)
+def ask_llama(prompt, source_tag):
+    try:
+        model_name = choose_model(source_tag)
+    except Exception:
+        model_name = "r1-free"  # safest fallback
+
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "HTTP-Referer": "https://yourdomain.com",
@@ -252,24 +257,14 @@ def ask_llama(prompt):
         "https://openrouter.ai/api/v1/chat/completions",
         headers=headers,
         json={
-            try:
-                model_name = choose_model(source_tag)
-            except Exception:
-                model_name = "r1-free"  # safest default
+            "model": model_name,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.4
         }
-           ...
-
-            response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers=headers,
-                json={
-                    "model": model_name,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0.4
-                }
-            )
+    )
 
     return response.json()["choices"][0]["message"]["content"]
+
 
 
 # streamlit_app.py — Part 5 of 7
