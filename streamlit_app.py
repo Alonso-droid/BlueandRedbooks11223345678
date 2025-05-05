@@ -19,6 +19,7 @@ st.set_page_config(page_title="Legal CiteMate", layout="wide")
 st.sidebar.markdown("## ⚖️ Legal CiteMate")
 st.sidebar.markdown("""
 Your AI-powered assistant for citation and writing support using **The Bluebook (21st Ed.)** and **The Redbook (5th Ed.)**.
+st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
 
 ### How to Use:
 - Select whether you're writing **academically** or **practitioner-style**
