@@ -1,0 +1,49 @@
+[theme]
+# Primary accent color for interactive elements
+primaryColor = "#2E5090"  # Deep blue similar to law books
+
+# Background color for the main content area
+backgroundColor = "#F9F9F9"  # Light gray background for readability
+
+# Background color used for the sidebar
+secondaryBackgroundColor = "#E6EBF2"  # Light blue-gray for sidebar
+
+# Color used for almost all text
+textColor = "#262730"  # Dark gray for better contrast
+
+# Font family for all text in the app
+font = "Georgia"  # Serif font to match legal documents
+
+[server]
+# If false, will attempt to open a browser window on start
+headless = false
+
+# Enable cors for the server
+enableCORS = false
+
+# Port where the server will listen for browser connections
+port = 8501
+
+# Enable the file uploader optimization for large files
+maxUploadSize = 5
+
+[browser]
+# Browser title that appears in browser tabs
+serverAddress = "localhost"
+serverPort = 8501
+gatherUsageStats = false
+
+[deprecation]
+# Show deprecation warnings
+showWarningOnDirectExecution = true
+
+[logger]
+# Level of logging
+level = "info"
+
+[global]
+# Display a warning when the user closes the app
+showWarningOnClose = true
+
+# Enables sharing of sessions across browser tabs
+shareSessionState = false
