@@ -1,49 +1,49 @@
 [theme]
-# Primary accent color for interactive elements
-primaryColor = "#2E5090"  # Deep blue similar to law books
+# Deep navy for a legal-professional accent
+primaryColor = "#2E5090"
 
-# Background color for the main content area
-backgroundColor = "#F9F9F9"  # Light gray background for readability
+# Light gray for clean reading space
+backgroundColor = "#F9F9F9"
 
-# Background color used for the sidebar
-secondaryBackgroundColor = "#E6EBF2"  # Light blue-gray for sidebar
+# Subtle blue-gray sidebar, reminiscent of citation manuals
+secondaryBackgroundColor = "#E6EBF2"
 
-# Color used for almost all text
-textColor = "#262730"  # Dark gray for better contrast
+# High-contrast dark text
+textColor = "#262730"
 
-# Font family for all text in the app
-font = "Georgia"  # Serif font to match legal documents
+# Serif font for legal-style readability
+font = "Georgia"
 
 [server]
-# If false, will attempt to open a browser window on start
-headless = false
+# For local development, headless can be false
+headless = true
 
-# Enable cors for the server
+# Allow CORS for API integrations if needed
 enableCORS = false
 
-# Port where the server will listen for browser connections
+# Auto-pick a port on Streamlit Cloud
 port = 8501
 
-# Enable the file uploader optimization for large files
-maxUploadSize = 5
+# Allow larger file uploads for internal PDFs or .pkl files
+maxUploadSize = 100
 
 [browser]
-# Browser title that appears in browser tabs
+# Optional browser settings
 serverAddress = "localhost"
 serverPort = 8501
 gatherUsageStats = false
 
 [deprecation]
-# Show deprecation warnings
+# See warnings when using outdated Streamlit features
 showWarningOnDirectExecution = true
 
 [logger]
-# Level of logging
+# Logging level (options: error, warning, info, debug)
 level = "info"
 
 [global]
-# Display a warning when the user closes the app
+# Helpful to remind users about unsaved work
 showWarningOnClose = true
 
-# Enables sharing of sessions across browser tabs
+# Disable sharing session state across tabs for citation integrity
 shareSessionState = false
