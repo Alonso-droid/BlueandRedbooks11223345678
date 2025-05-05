@@ -211,6 +211,9 @@ for match in top_matches:
 import requests
 
 OPENROUTER_API_KEY = st.secrets.get("OPENROUTER_API_KEY")  # Loaded securely from Streamlit Cloud
+if not OPENROUTER_API_KEY:
+    st.error("❌ OpenRouter API key not found. Did you set it in Streamlit secrets?")
+
 
 @st.cache_data
 def build_contextual_prompt(query, style_context, matches, source_tag):
