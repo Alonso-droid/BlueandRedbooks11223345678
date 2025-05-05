@@ -156,33 +156,62 @@ if not query or not submitted:
     st.stop()
 
 
-# --- Step 4b: Format Preview Examples ---
-st.subheader("Formatting Preview")
+# --- Step 4b: Practical Formatting Quick Reference ---
+st.subheader("📌 Common Formatting Pitfalls & Best Practices")
 
 if source_tag == "bluebook":
     if style_context == "Whitepages":
         st.markdown("""
-        ##### **Academic (Whitepages) Example**
-        *Marbury v. Madison*, 5 U.S. (1 Cranch) 137 (1803).
-        - Use *italics* for case names
-        - Parenthetical date
+        #### 📘 Academic Citations (Law Reviews)
+
+        **Common Issues Observed:**
+        - ❌ Inconsistent use of *supra* vs. *hereinafter*
+        - ❌ Failing to abbreviate case reporters properly (e.g., "Federal Reporter" instead of "F.3d")
+        - ❌ Incorrect spacing or punctuation around “Id.”
+        - ❌ Forgetting to italicize case names in footnotes
+        - ❌ Mixing Whitepages format with Bluepages (e.g., underlining in articles)
+
+        **Best Practices:**
+        - Always check Table abbreviations before first submission
+        - Use non-breaking spaces around “Id.” to prevent line splits
+        - Maintain consistent parenthetical structure: court, then reporter, then year
         """)
     else:
         st.markdown("""
-        ##### **Practitioner (Bluepages) Example**
-        Marbury v. Madison, 5 U.S. (1 Cranch) 137 (1803).
-        - No italics (use underlining in print)
-        - Use full case names
+        #### ⚖️ Legal Practice (Briefs, Memos)
+
+        **Common Issues Observed:**
+        - ❌ Using italics instead of underlining for case names in print briefs
+        - ❌ Omitting parallel citations when local rules require them
+        - ❌ Misplacing pincites (e.g., after year)
+        - ❌ Overusing full case names on every reference
+        - ❌ Forgetting to update short form citations after edits
+
+        **Best Practices:**
+        - Use underlines in print submissions; plain in electronic unless required
+        - Keep short forms consistent — especially in long documents
+        - Double-check jurisdictional rules for citation formatting overrides
         """)
+
 elif source_tag == "redbook":
     st.markdown("""
-    ##### **Redbook Writing Style Example**
-    ✅ Correct: "The Court held that..."
-    ❌ Incorrect: "the court held that..."
+    #### ✍️ Legal Writing Style (Redbook-Oriented)
 
-    - Capitalize “Court” when referring to the U.S. Supreme Court  
-    - Use one space between sentences (Redbook § 1.1)
+    **Common Issues:**
+    - ❌ Inconsistent capitalization of “Court” vs. “court” (especially with SCOTUS)
+    - ❌ Overuse of passive voice in persuasive sections
+    - ❌ Serial (Oxford) comma omitted in formal filings
+    - ❌ Misuse of em dashes (e.g., using double hyphens or no spaces)
+    - ❌ Italics used excessively for emphasis or defined terms
+
+    **Best Practices:**
+    - Use the Oxford comma for clarity — even in lists of case names
+    - Apply em dashes with care: no spaces before/after
+    - Reserve italics for case names, foreign phrases, and precise emphasis
+    - Capitalize “Court” when referring to a specific or named court, especially SCOTUS
     """)
+
+st.info("These highlights are based on real writing errors flagged by editors, clerks, and style guides in recent years.")
 
 
 
