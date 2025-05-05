@@ -10,6 +10,15 @@ import re
 from helpers import render_keyword_suggestions
 from helpers import choose_model
 
+import os
+
+# DEBUG: Show current directory and file structure
+st.write("📁 Current working directory:", os.getcwd())
+st.write("📂 Files in root directory:", os.listdir("."))
+if os.path.exists("private_docs"):
+    st.write("📁 Contents of /private_docs:", os.listdir("private_docs"))
+else:
+    st.error("❌ Folder 'private_docs' not found at runtime.")
 
 
 # --- Page Configuration ---
@@ -87,16 +96,20 @@ st.markdown(f"✍️ Using: **{context_label}** formatting rules")
 @st.cache_resource(show_spinner="Loading legal sources...")
 def load_all_embeddings():
     sources = {}
-    for tag, path in {
-        "bluebook": "./private_docs/bluebook_embeddings.pkl",
-        "redbook": "./private_docs/redbook_embeddings.pkl"
-    }.items():
+
+    EMBEDDING_PATHS = {
+        "bluebook": os.path.join("private_docs", "bluebook_embeddings.pkl"),
+        "redbook": os.path.join("private_docs", "redbook_embeddings.pkl")
+    }
+
+    for tag, path in EMBEDDING_PATHS.items():
         if os.path.exists(path):
             with open(path, "rb") as f:
                 sources[tag] = pickle.load(f)
         else:
             st.warning(f"⚠️ Missing embedding file: {path}")
     return sources
+
 
 # All loaded data (dict: "bluebook" → [...], "redbook" → [...])
 embedding_sources = load_all_embeddings()
