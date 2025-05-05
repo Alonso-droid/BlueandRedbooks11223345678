@@ -266,8 +266,11 @@ def ask_llama(prompt, source_tag):
         }
     )
 
-    return response.json()["choices"][0]["message"]["content"]
+    if response.status_code != 200:
+        st.error(f"❌ OpenRouter error {response.status_code}: {response.text}")
+        return "Sorry, the model failed to respond."
 
+    return response.json()["choices"][0]["message"]["content"]
 
 
 # streamlit_app.py — Part 5 of 7
