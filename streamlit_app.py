@@ -10,6 +10,9 @@ import re
 from helpers import render_keyword_suggestions
 from helpers import choose_model
 
+# --- Page Configuration ---
+st.set_page_config(page_title="CiteWise", layout="wide")
+
 import os
 
 # DEBUG: Show current directory and file structure
@@ -21,8 +24,7 @@ else:
     st.error("❌ Folder 'private_docs' not found at runtime.")
 
 
-# --- Page Configuration ---
-st.set_page_config(page_title="CiteWise", layout="wide")
+
 
 # --- Sidebar Branding & Instructions ---
 st.sidebar.markdown("## ⚖️ CiteWise")
