@@ -395,6 +395,6 @@ It uses embeddings + AI (Deep Hermes LLaMA 3 Preview from OpenRouter) to:
 # --- 13. Friendly Footer ---
 st.markdown("""
 ---
-© 2025 Citewise.  
-This tool does **not replace legal training** — it enhances it.
+© 2025 CiteWise.  
+This tool does **not replace independent verification** — Please verify all responses.
 """)
