@@ -52,7 +52,7 @@ h1, h2, h3 {
 
 
 # --- Step 0: Choose Source (Book) ---
-st.subheader("Step 0: Choose Your Sourcebook")
+st.subheader("Step 1: Choose Your Sourcebook")
 
 sourcebook = st.radio(
     "Which source do you want to search?",
@@ -67,7 +67,7 @@ source_tag = "bluebook" if sourcebook.startswith("Blue") else "redbook"
 
 
 # --- 1. Style Context Toggle ---
-st.subheader("Step 1: Choose Your Legal Writing Context")
+st.subheader("Step 2: Choose Your Legal Writing Context")
 style_context = st.radio(
     "Which citation style are you working with?",
     ["Academic (Law Review)", "Practitioner (Court Brief or Memo)", "Grammar/Writing (Redbook)"],
@@ -116,7 +116,7 @@ def load_model():
 embed_model = load_model()
 
 # --- 4. User Query + Auto-Suggest ---
-st.subheader("Step 2: Ask a Citation or Writing Question")
+st.subheader("Step 3: Ask a Citation or Writing Question")
 
 # --- Maintain Query Input State ---
 if "query_input" not in st.session_state:
@@ -197,7 +197,7 @@ def search_source_embeddings(query, embeddings_data, k=3):
 top_matches = search_source_embeddings(query, selected_data, k=3)
 
 
-st.subheader("Step 3: Relevant Bluebook Content")
+st.subheader("Step 4: Relevant Bluebook Content")
 for match in top_matches:
     with st.expander(f"📘 Rule Match: {match['section']} (p. {match['page']}) — Score: {match['score']}"):
         st.markdown(f"> {match['text']}")
@@ -258,7 +258,7 @@ def ask_llama(prompt):
 # streamlit_app.py — Part 5 of 7
 
 # --- 7. Build Prompt and Send to OpenRouter ---
-st.subheader("Step 4: AI-Powered Answer")
+st.subheader("Step 5: AI-Powered Answer")
 
 with st.spinner("Analyzing legal style and generating response..."):
     try:
@@ -283,7 +283,7 @@ st.info("⚠️ This answer was generated using AI (Deep Hermes LLaMA 3 Preview 
 # --- 9. Optional Markdown Export ---
 
 
-st.subheader("Step 5: Export or Copy Answer")
+st.subheader("Step 6: Export or Copy Answer")
 
 book_label = "The Bluebook (21st ed.)" if source_tag == "bluebook" else "The Redbook (5th ed.)"
 
