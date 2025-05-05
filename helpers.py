@@ -1,3 +1,5 @@
+import streamlit as st
+
 # --- Keyword Suggestion Dictionary ---
 COMMON_TOPICS = {
     "Bluebook": {
@@ -18,7 +20,7 @@ COMMON_TOPICS = {
     "Redbook": {
         "Punctuation & Grammar": [
             ("Oxford comma", "Should I use a serial (Oxford) comma in legal writing?"),
-            ("Ellipses", "How do I format an ellipsis in a quotation?"),
+            ("Ellipses", "How do I format an ellipsis in a quotation?")
         ],
         "Typography": [
             ("Italics", "When should I italicize words in legal writing?"),
@@ -31,19 +33,28 @@ COMMON_TOPICS = {
     }
 }
 
-import streamlit as st
+# --- Model Selector ---
+def choose_model(source_tag: str) -> str:
+    if source_tag == "bluebook":
+        return "meta-llama/llama-4-scout:free"
+    elif source_tag == "redbook":
+        return "mistralai/mistral-small-3.1-24b-instruct:free"
+    else:
+        return "deepseek/deepseek-chat-v3-0324:free"
 
-st.markdown("""
-    <style>
-        .stButton button {
-            padding: 0.35rem 0.75rem;
-            font-size: 0.85rem;
-            margin-bottom: 0.2rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
+# --- Render Compact Keyword Suggestions ---
 def render_keyword_suggestions(source_tag):
+    # Add this CSS only when rendering (not at module import time)
+    st.markdown("""
+        <style>
+            .stButton button {
+                padding: 0.35rem 0.75rem;
+                font-size: 0.85rem;
+                margin-bottom: 0.2rem;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
     suggestions = {
         "bluebook": [
             ("Short Form", "How do I cite a case in short form?"),
@@ -58,27 +69,10 @@ def render_keyword_suggestions(source_tag):
     }
 
     st.markdown("#### 💡 Quick Topic Fill")
-
-    # Wrap in a container for styling control
     with st.container():
-        col1, col2, col3 = st.columns([1, 1, 1])
-
-        # Render each button tightly
-        buttons = [col1, col2, col3]
+        cols = st.columns(len(suggestions[source_tag]))
         for i, (label, query_text) in enumerate(suggestions[source_tag]):
-            if buttons[i].button(label, key=f"suggest_{label}_{source_tag}"):
+            if cols[i].button(label, key=f"suggest_{label}_{source_tag}"):
                 return query_text
 
     return None
-
-
-def choose_model(source_tag: str) -> str:
-    """
-    Choose the best free OpenRouter model for Bluebook vs. Redbook tasks.
-    """
-    if source_tag == "bluebook":
-        return "meta-llama/llama-4-scout:free"  # Precise + rule-following
-    elif source_tag == "redbook":
-        return "mistralai/mistral-small-3.1-24b-instruct:free"  # Strong grammar
-    else:
-        return "deepseek/deepseek-chat-v3-0324:free"  # General fallback
