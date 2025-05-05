@@ -133,12 +133,20 @@ if preset_query:
     st.session_state["query_input"] = preset_query
 
 
-query = st.text_input(
-    "What do you need help with?",
-    placeholder="e.g., How do I cite a federal statute in a court brief?",
-    value=st.session_state["query_input"],
-    key="query_input"
-)
+with st.form("search_form"):
+    query = st.text_input(
+        "What do you need help with?",
+        placeholder="e.g., How do I cite a federal statute in a court brief?",
+        value=st.session_state.get("query_input", "")
+    )
+    submitted = st.form_submit_button("🔍 Run Search")
+
+# Save to session if submitted
+if submitted:
+    st.session_state["query_input"] = query
+elif not query:
+    st.stop()
+
 
 if st.button("🔄 Clear Question"):
     st.session_state["query_input"] = ""
