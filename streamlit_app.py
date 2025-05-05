@@ -256,6 +256,7 @@ def ask_llama(prompt):
                 model_name = choose_model(source_tag)
             except Exception:
                 model_name = "r1-free"  # safest default
+        }
            ...
 
             response = requests.post(
