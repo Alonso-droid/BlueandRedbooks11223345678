@@ -13,10 +13,10 @@ from helpers import choose_model
 
 
 # --- Page Configuration ---
-st.set_page_config(page_title="Legal CiteMate", layout="wide")
+st.set_page_config(page_title="CiteWise", layout="wide")
 
 # --- Sidebar Branding & Instructions ---
-st.sidebar.markdown("## ⚖️ Legal CiteMate")
+st.sidebar.markdown("## ⚖️ CiteWise")
 st.sidebar.markdown("""
 Your AI-powered assistant for citation and writing support using **The Bluebook (21st Ed.)** and **The Redbook (5th Ed.)**.
 st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
@@ -238,7 +238,7 @@ def ask_llama(prompt):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "HTTP-Referer": "https://yourdomain.com",
-        "X-Title": "Legal CiteMate"
+        "X-Title": "CiteWise"
     }
 
     response = requests.post(
@@ -341,16 +341,16 @@ if os.path.exists(logo_path):
     with col1:
         st.image(Image.open(logo_path), width=80)
     with col2:
-        st.title("Legal CiteMate")
+        st.title("CiteWise")
 else:
-    st.title("⚖️ Legal CiteMate")
+    st.title("⚖️ CiteWise")
 
 st.caption("An AI-powered assistant for The Bluebook (21st Ed.) and The Redbook (5th Ed.)")
 
 # --- 12. About Section ---
 with st.expander("ℹ️ About This App"):
     st.markdown("""
-**Legal CiteMate** is designed for:
+**CiteWise** is designed for:
 - Law students
 - Legal practitioners
 - Law review editors
