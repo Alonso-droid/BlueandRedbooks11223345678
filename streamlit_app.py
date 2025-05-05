@@ -248,11 +248,11 @@ def ask_llama(prompt, source_tag):
     try:
         model_name = choose_model(source_tag)
     except Exception:
-        model_name = "r1-free"  # safest fallback
+        model_name = "r1-free"  # fallback
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "https://yourdomain.com",
+        "HTTP-Referer": "https://yourdomain.com",  # optional
         "X-Title": "CiteWise"
     }
 
@@ -267,10 +267,11 @@ def ask_llama(prompt, source_tag):
     )
 
     if response.status_code != 200:
-        st.error(f"❌ OpenRouter error {response.status_code}: {response.text}")
-        return "Sorry, the model failed to respond."
+        st.error(f"❌ API Error {response.status_code}: {response.text}")
+        return "Sorry, the model could not respond."
 
     return response.json()["choices"][0]["message"]["content"]
+
 
 
 # streamlit_app.py — Part 5 of 7
