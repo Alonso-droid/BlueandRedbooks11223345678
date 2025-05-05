@@ -8,6 +8,8 @@ import numpy as np
 from datetime import datetime
 import re
 from helpers import render_keyword_suggestions
+from helpers import choose_model
+
 
 
 # --- Page Configuration ---
@@ -242,7 +244,7 @@ def ask_llama(prompt):
         "https://openrouter.ai/api/v1/chat/completions",
         headers=headers,
         json={
-            "model": "openrouter/deepseek-coder:llama3-8b-instruct-preview",
+            "model": choose_model(source_tag),
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.4
         }
