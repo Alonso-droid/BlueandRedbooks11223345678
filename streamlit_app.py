@@ -220,7 +220,8 @@ for match in top_matches:
 # streamlit_app.py — Part 4 of 7
 import requests
 
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Store securely
+OPENROUTER_API_KEY = st.secrets.get("OPENROUTER_API_KEY")  # Store securely
+
 
 @st.cache_data
 def build_contextual_prompt(query, style_context, matches, source_tag):
