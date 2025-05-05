@@ -142,9 +142,18 @@ query = st.text_input(
 
 if st.button("🔄 Clear Question"):
     st.session_state["query_input"] = ""
+    st.experimental_rerun()
 
+with st.form("search_form"):
+    query = st.text_input(
+        "What do you need help with?",
+        placeholder="e.g., How do I cite a federal statute in a court brief?",
+        value=st.session_state["query_input"],
+        key="query_input"
+    )
+    submitted = st.form_submit_button("🔍 Run Search")
 
-if not query:
+if not query or not submitted:
     st.stop()
 
 
@@ -282,7 +291,7 @@ st.subheader("Step 5: AI-Powered Answer")
 with st.spinner("Analyzing legal style and generating response..."):
     try:
         prompt = build_contextual_prompt(query, context_label, top_matches, source_tag)
-        answer = ask_llama(prompt)
+        answer = ask_llama(prompt, source_tag)
     except Exception as e:
         st.error("An error occurred while contacting the model. Please check your OpenRouter key and try again.")
         st.stop()
