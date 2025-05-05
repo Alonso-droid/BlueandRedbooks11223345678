@@ -13,25 +13,16 @@ from helpers import choose_model
 # --- Page Configuration ---
 st.set_page_config(page_title="CiteWise", layout="wide")
 
-import os
-
-# DEBUG: Show current directory and file structure
-st.write("📁 Current working directory:", os.getcwd())
-st.write("📂 Files in root directory:", os.listdir("."))
-if os.path.exists("private_docs"):
-    st.write("📁 Contents of /private_docs:", os.listdir("private_docs"))
-else:
-    st.error("❌ Folder 'private_docs' not found at runtime.")
-
 
 
 
 # --- Sidebar Branding & Instructions ---
 st.sidebar.markdown("## ⚖️ CiteWise")
+st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
 st.sidebar.markdown("""
 Your AI-powered assistant for citation and writing support using **The Bluebook (21st Ed.)** and **The Redbook (5th Ed.)**.
 
-st.sidebar.markdown(f"🤖 Using model: `{choose_model(source_tag)}`")
+
 
 ### How to Use:
 - Select whether you're writing **academically** or **practitioner-style**
